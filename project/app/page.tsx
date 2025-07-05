@@ -21,7 +21,7 @@ export default function Home() {
   agreeToContact: boolean;
 };
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     email: '',
