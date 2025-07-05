@@ -12,6 +12,15 @@ import { Phone, Mail, MapPin, Clock, CheckCircle2, Heart, Brain, Users, Menu, X 
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  type FormData = {
+  name: string;
+  phone: string;
+  email: string;
+  message: string;
+  preferredTime: string;
+  agreeToContact: boolean;
+};
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
