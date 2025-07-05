@@ -443,7 +443,7 @@ export default function Home() {
                   <Checkbox
                     id="agree"
                     checked={formData.agreeToContact}
-                    onCheckedChange={(checked) => setFormData({...formData, agreeToContact: checked})}
+                    onCheckedChange={(checked) => setFormData({...formData, agreeToContact: !!checked})}
                     className={errors.agreeToContact ? 'border-red-500' : ''}
                   />
                   <Label htmlFor="agree" className="text-sm text-slate-700 leading-relaxed">
