@@ -10,9 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Phone, Mail, MapPin, Clock, CheckCircle2, Heart, Brain, Users, Menu, X } from 'lucide-react';
 
-export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  type FormData = {
+type FormData = {
   name: string;
   phone: string;
   email: string;
@@ -20,6 +18,12 @@ export default function Home() {
   preferredTime: string;
   agreeToContact: boolean;
 };
+
+// Define the errors type
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
+export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -29,11 +33,12 @@ export default function Home() {
     preferredTime: '',
     agreeToContact: false
   });
-  const [errors, setErrors] = useState({});
 
-  const validateForm = () => {
-    const newErrors = {};
-    
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
@@ -41,12 +46,12 @@ export default function Home() {
     if (!formData.message.trim()) newErrors.message = 'This field is required';
     if (!formData.preferredTime.trim()) newErrors.preferredTime = 'Preferred time is required';
     if (!formData.agreeToContact) newErrors.agreeToContact = 'You must agree to be contacted';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
       alert('Thank you for your message. Dr. Blake will contact you soon!');
@@ -58,10 +63,11 @@ export default function Home() {
         preferredTime: '',
         agreeToContact: false
       });
+      setErrors({});
     }
   };
 
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
